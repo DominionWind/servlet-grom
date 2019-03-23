@@ -1,10 +1,6 @@
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.persistence.*;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -18,8 +14,8 @@ public class Item {
     private String description;
 
     @Id
-    @SequenceGenerator(name = "ITEM_SEQ", sequenceName = "ITEM_PK_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_SEQ")
+    @SequenceGenerator(name = "ITEM_S", sequenceName = "ITEM_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_S")
     @Column(name = "ID")
     public Long getId() {
         return id;
@@ -50,6 +46,7 @@ public class Item {
     public void setId(long id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }

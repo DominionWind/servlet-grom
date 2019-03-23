@@ -10,7 +10,7 @@ public class ItemDAO {
 
     private SessionFactory sessionFactory;
 
-    public Item save(Item item) {
+    Item save(Item item) {
         Session session = null;
         Transaction tr = null;
         try {
@@ -36,7 +36,7 @@ public class ItemDAO {
         return item;
     }
 
-    public Item update(Item item){
+    Item update(Item item){
         Session session = null;
         Transaction tr = null;
         try {
@@ -52,63 +52,59 @@ public class ItemDAO {
             if (tr != null) {
                 tr.rollback();
             }
-        } finally {
-            if (session != null) {
-                session.close();
+
+        }   finally {
+                if (session != null) {
+                    session.close();
+                }
             }
-        }
         sessionFactory.close();
         return item;
     }
 
-    public void delete(long id){
-        Session session = null;
-        Transaction tr = null;
+    void delete(long id){
+        Session session;
         try {
             session = createSessionFactory().openSession();
-            tr = session.getTransaction();
-            tr.begin();
             Item item = new Item();
             item.setId(id);
             session.delete(item);
-            tr.commit();
         } catch (HibernateException e) {
             System.err.println("Delete is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         sessionFactory.close();
     }
 
-    public Item findById(long id) throws Exception{
-        try (Session session = createSessionFactory().openSession()) {
+    Item findById(long id) throws Exception{
+        Session session = null;
+        try {
+            session = createSessionFactory().openSession();
             return session.get(Item.class, id);
         } catch (HibernateException e) {
             System.err.println("Can`t find by id " + id);
             System.err.println(e.getMessage());
+        } finally {
+            session.close();
         }
         sessionFactory.close();
         return null;
     }
 
-    public List<Item> getAllItem(){
-        try{Session session = createSessionFactory().openSession();
+    List<Item> getAllItem(){
+        Session session = null;
+        try{session = createSessionFactory().openSession();
             return (List<Item>) session.createQuery("FROM Item").list();
         }catch (HibernateException e) {
             System.err.println("Cant get all Item");
             System.err.println(e.getMessage());
+        } finally {
+            session.close();
         }
         return null;
     }
 
-    public SessionFactory createSessionFactory() {
+    private SessionFactory createSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = new Configuration().configure().buildSessionFactory();
         }
