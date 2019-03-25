@@ -77,10 +77,11 @@ public class ItemDAO {
     }
 
     Item findById(long id) throws Exception{
+        Item item = new Item();
         Session session = null;
         try {
             session = createSessionFactory().openSession();
-            return session.get(Item.class, id);
+            item = session.get(Item.class, id);
         } catch (HibernateException e) {
             System.err.println("Can`t find by id " + id);
             System.err.println(e.getMessage());
@@ -88,20 +89,21 @@ public class ItemDAO {
             session.close();
         }
         sessionFactory.close();
-        return null;
+        return item;
     }
 
     List<Item> getAllItem(){
         Session session = null;
+        List<Item> items = null;
         try{session = createSessionFactory().openSession();
-            return (List<Item>) session.createQuery("FROM Item").list();
+            items = session.createQuery("FROM Item").list();
         }catch (HibernateException e) {
             System.err.println("Cant get all Item");
             System.err.println(e.getMessage());
         } finally {
             session.close();
         }
-        return null;
+        return items;
     }
 
     private SessionFactory createSessionFactory() {

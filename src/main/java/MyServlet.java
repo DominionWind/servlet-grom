@@ -10,6 +10,11 @@ public class MyServlet extends HttpServlet {
     ItemController itemController = new ItemController();
     ItemUtil util = new ItemUtil();
 
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        resp.getWriter().println("test");
+//    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
