@@ -1,24 +1,26 @@
 import java.util.List;
 
-public class ItemController extends ItemService {
+public class ItemController{
+
+    private ItemService itemService = new ItemService();
 
     public Item saveItem(Item item){
-        return saveI(item);
+        return itemService.saveI(item);
     }
 
     public Item updateItem(Item item){
-        return updateI(item);
+        return itemService.updateI(item);
     }
 
     public void deleteItem(long id){
-        deleteI(id);
+        itemService.deleteI(id);
     }
 
     public Item findByIdItem(long id) throws Exception{
-        return findByIdI(id);
+        return itemService.findByIdI(id);
     }
 
     public List<Item> getAllItems(){
-        return getAllI();
+        return itemService.getAllI();
     }
 }

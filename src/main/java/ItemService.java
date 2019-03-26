@@ -1,24 +1,26 @@
 import java.util.List;
 
-public class ItemService extends ItemDAO {
+public class ItemService {
+
+    private ItemDAO itemDAO = new ItemDAO();
 
     public Item saveI(Item item){
-        return save(item);
+        return itemDAO.save(item);
     }
 
     public Item updateI(Item item){
-        return update(item);
+        return itemDAO.update(item);
     }
 
     public void deleteI(long id){
-        delete(id);
+        itemDAO.delete(id);
     }
 
     public Item findByIdI(long id) throws Exception{
-        return findById(id);
+        return itemDAO.findById(id);
     }
 
     public List<Item> getAllI(){
-        return getAllItem();
+        return itemDAO.getAllItem();
     }
 }
