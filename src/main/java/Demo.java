@@ -13,7 +13,8 @@ public class Demo {
 
 //        controller.saveItem(item);
 //
-        System.out.println(controller.findByIdItem(21).toString());
+//        System.out.println(controller.findByIdItem(21).toString());
+        controller.deleteItem(41);
 
 //        System.out.println(controller.getAllItems().toString());
 

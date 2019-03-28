@@ -1,5 +1,3 @@
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -16,10 +14,10 @@ public class MyServlet extends HttpServlet {
     ItemController itemController = new ItemController();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            resp.getWriter().println(itemController.findByIdItem(Long.parseLong(req.getParameter("id"))).toString());
-        } catch (Exception e) {
+            resp.getWriter().println(itemController.findByIdItem(Long.valueOf(req.getParameter("id"))).toString());
+        }catch (Exception e){
             resp.getWriter().println(e.getMessage());
         }
     }
@@ -53,7 +51,6 @@ public class MyServlet extends HttpServlet {
         }
     }
 
-
     private Item mapper(HttpServletRequest req)throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = req.getReader();
@@ -65,9 +62,9 @@ public class MyServlet extends HttpServlet {
         } finally {
             reader.close();
         }
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
         String data = sb.toString();
-        
+
         ObjectMapper mapper = new ObjectMapper();
         Item item = mapper.readValue(data, Item.class);
         return item;

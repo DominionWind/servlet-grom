@@ -36,7 +36,7 @@ public class ItemDAO {
         return item;
     }
 
-    Item update(Item item){
+    Item update(Item item) {
         Session session = null;
         Transaction tr = null;
         try {
@@ -53,22 +53,24 @@ public class ItemDAO {
                 tr.rollback();
             }
 
-        }   finally {
-                if (session != null) {
-                    session.close();
-                }
+        } finally {
+            if (session != null) {
+                session.close();
             }
+        }
         sessionFactory.close();
         return item;
     }
 
-    void delete(long id){
+    void delete(Long id){
         Session session;
+        Transaction tr;
         try {
             session = createSessionFactory().openSession();
-            Item item = new Item();
-            item.setId(id);
-            session.delete(item);
+            tr = session.getTransaction();
+            tr.begin();
+            session.delete(findById(id));
+            tr.commit();
         } catch (HibernateException e) {
             System.err.println("Delete is failed");
             System.err.println(e.getMessage());
@@ -76,7 +78,7 @@ public class ItemDAO {
         sessionFactory.close();
     }
 
-    Item findById(long id) throws Exception{
+    Item findById(Long id){
         Item item = new Item();
         Session session = null;
         try {
@@ -92,12 +94,13 @@ public class ItemDAO {
         return item;
     }
 
-    List<Item> getAllItem(){
+    List<Item> getAllItem() {
         Session session = null;
         List<Item> items = null;
-        try{session = createSessionFactory().openSession();
+        try {
+            session = createSessionFactory().openSession();
             items = session.createQuery("FROM Item").list();
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             System.err.println("Cant get all Item");
             System.err.println(e.getMessage());
         } finally {
