@@ -12,7 +12,7 @@ public class ItemService {
         return itemDAO.update(item);
     }
 
-    public void deleteI(long id){
+    public void deleteI(long id)throws Exception{
         itemDAO.delete(id);
     }
 

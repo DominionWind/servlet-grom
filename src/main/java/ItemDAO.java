@@ -31,7 +31,6 @@ public class ItemDAO {
                 session.close();
             }
         }
-        sessionFactory.close();
         System.out.println("Done");
         return item;
     }
@@ -52,13 +51,7 @@ public class ItemDAO {
             if (tr != null) {
                 tr.rollback();
             }
-
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
-        sessionFactory.close();
         return item;
     }
 
@@ -75,7 +68,6 @@ public class ItemDAO {
             System.err.println("Delete is failed");
             System.err.println(e.getMessage());
         }
-        sessionFactory.close();
     }
 
     Item findById(Long id){
@@ -90,7 +82,6 @@ public class ItemDAO {
         } finally {
             session.close();
         }
-        sessionFactory.close();
         return item;
     }
 

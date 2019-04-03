@@ -12,7 +12,7 @@ public class ItemController{
         return itemService.updateI(item);
     }
 
-    public void deleteItem(long id){
+    public void deleteItem(long id)throws Exception{
         itemService.deleteI(id);
     }
 
