@@ -36,7 +36,7 @@ public class ItemDAO {
     }
 
     Item update(Item item) {
-        Session session = null;
+        Session session;
         Transaction tr = null;
         try {
             session = createSessionFactory().openSession();
@@ -79,8 +79,6 @@ public class ItemDAO {
         } catch (HibernateException e) {
             System.err.println("Can`t find by id " + id);
             System.err.println(e.getMessage());
-        } finally {
-            session.close();
         }
         return item;
     }
